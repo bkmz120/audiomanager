@@ -1,0 +1,23 @@
+.audioTrack {
+  line-height: 70px;
+  padding: 0 20px;
+}
+
+.audioTrack__name {
+  display: inline-block;
+  vertical-align: top;
+  width: 400px;
+  margin-right: 4px;
+}
+
+.audioTrack__edit {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 3px !important;
+}
+
+.audioTrack__delete {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 3px !important;
+}

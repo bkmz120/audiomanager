@@ -6,11 +6,20 @@ import {connect} from "react-redux";
 
 import MainWrapper from '../MainWrapper';
 import {AudioList} from '../../components/AudioList';
+import {getTracks} from '../../actions/audio';
+
 import "./style.css";
 
 class AudioManager extends Component {
+
+  componentDidMount() {
+      this.props.getTracks();
+  }
+
   render() {
     let {tracks} = this.props;
+
+
 
     return (
       <MainWrapper className="audioManager">
@@ -18,6 +27,7 @@ class AudioManager extends Component {
           <Icon>add</Icon>Add track
         </Button>
         <AudioList tracks={tracks}></AudioList>
+
       </MainWrapper>
     );
   }
@@ -29,10 +39,10 @@ const mapStateToProps = (state, ownProps) => {
     };
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//       changeTab : (tabIndex) => dispatch(changeTab(tabIndex)),
-//   }
-// }
+const mapDispatchToProps = (dispatch) => {
+  return {
+      getTracks : () => dispatch(getTracks()),
+  }
+}
 
-export default connect(mapStateToProps)(AudioManager);
+export default connect(mapStateToProps,mapDispatchToProps)(AudioManager);

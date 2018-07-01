@@ -22,8 +22,6 @@ function generateInitState() {
   }
 }
 
-console.log(initialState);
-
 export default function update(state = initialState, action) {
   switch(action.type) {
     case CHANGE_TAB:

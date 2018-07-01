@@ -5,3 +5,7 @@
 .AudioEditForm__form {
   padding:0 30px;
 }
+
+.AudioEditForm__addBtn {
+  margin-top: 30px !important;
+}

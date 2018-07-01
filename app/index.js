@@ -2,7 +2,8 @@
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router, Switch, Route, Link } from 'react-router-dom';
 import { createHashHistory } from 'history';
@@ -18,28 +19,12 @@ import {PlaylistManager} from './containers/PlaylistManager';
 import './styles/common.css';
 
 const store = createStore(
-  reducer
+  reducer,
+  {},
+  applyMiddleware(thunk)
 )
 
 const history = createHashHistory()
-
-history.listen((location, action) => {
-
-})
-
-const Todo = () => (
-  <div>
-    <p>textx</p>
-    <Link to="/settings">Settings</Link>
-  </div>
-);
-
-const Todo2 = () => (
-  <div>
-    <p>textx2</p>
-    <Link to="/">Home</Link>
-  </div>
-);
 
 const App = () => (
   <Provider store={store}>
@@ -53,6 +38,5 @@ const App = () => (
     </Router>
   </Provider>
 )
-
 
 ReactDOM.render(<App/>, document.getElementById('root'))

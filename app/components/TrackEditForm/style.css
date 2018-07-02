@@ -1,0 +1,27 @@
+.AudioEditForm {
+
+}
+
+.AudioEditForm__form {
+
+}
+
+.AudioEditForm__addBtn {
+  margin-top: 30px !important;
+}
+
+.AudioEditForm__fileLine {
+
+}
+
+.AudioEditForm__trackFileName {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 18px;
+  line-height: 36px;
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.AudioEditForm__trackFileName_error {
+  color:#f44336;
+}

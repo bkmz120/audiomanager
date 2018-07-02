@@ -23,10 +23,12 @@ class AudioManager extends Component {
 
     return (
       <MainWrapper className="audioManager">
+        <div className="audioManager__list">
+          <AudioList tracks={tracks}></AudioList>
+        </div>
         <Button variant="contained" component={Link} to="/audio/new" color="primary" className="audioManager__addBtn">
           <Icon>add</Icon>Add track
         </Button>
-        <AudioList tracks={tracks}></AudioList>
 
       </MainWrapper>
     );

@@ -11,6 +11,7 @@ use Yii;
  * @property string $title
  * @property string $artist
  * @property string $description
+ * @property string $fileName
  */
 class Tracks extends \yii\db\ActiveRecord
 {
@@ -28,9 +29,9 @@ class Tracks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'artist', 'description'], 'required'],
+            [['title', 'fileName'], 'required'],
             [['description'], 'string'],
-            [['title', 'artist'], 'string', 'max' => 255],
+            [['title', 'artist', 'fileName'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +45,7 @@ class Tracks extends \yii\db\ActiveRecord
             'title' => 'Title',
             'artist' => 'Artist',
             'description' => 'Description',
+            'fileName' => 'File Name',
         ];
     }
 }

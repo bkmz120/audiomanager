@@ -1,0 +1,12 @@
+.fileUpload {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.fileUpload__btn {
+
+}
+
+.fileUpload__form {
+  display: none;
+}

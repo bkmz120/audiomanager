@@ -1,6 +1,11 @@
 .audioTrack {
   line-height: 70px;
   padding: 0 20px;
+  border-bottom: 1px solid #efefef;
+}
+
+.audioTrack:hover {
+  background-color: #fff;
 }
 
 .audioTrack__name {
@@ -13,11 +18,11 @@
 .audioTrack__edit {
   display: inline-block;
   vertical-align: top;
-  margin:0 3px !important;
+  margin:0 7px !important;
 }
 
 .audioTrack__delete {
   display: inline-block;
   vertical-align: top;
-  margin:0 3px !important;
+  margin:0 7px !important;
 }

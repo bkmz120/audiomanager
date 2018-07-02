@@ -57,7 +57,13 @@ $config = [
             'enableStrictParsing' => true,
             'showScriptName' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => 'track'],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'track',
+                    'extraPatterns' => [
+                        'POST uploadtrack' => 'uploadtrack',
+                    ],
+                ],
             ],
         ],
 

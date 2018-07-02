@@ -32,7 +32,8 @@ const App = () => (
       <Switch>
         <Route exact name='audioManager' path='/' component={AudioManager} />
         <Route exact name='audioManager' path='/audio' component={AudioManager} />
-        <Route exact name='audioEdit' path='/audio/new' component={AudioEdit} />
+        <Route exact name='audioNew' path='/audio/new' component={AudioEdit} />
+        <Route exact name='audioEdit' path='/audio/edit/:id' component={AudioEdit} />
         <Route exact name='playlistManager' path='/playlist' component={PlaylistManager} />
       </Switch>
     </Router>

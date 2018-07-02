@@ -1,5 +1,7 @@
 .audioList {
   position: relative;
+  background-color: #fdfdfdf1;
+  box-shadow: 1px 3px 2px 0px rgb(232, 232, 232);
 }
 
 .audioList__processOverlay {

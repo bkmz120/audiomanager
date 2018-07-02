@@ -26,7 +26,14 @@ export default function update(state = initialState, action) {
     case constants.GET_TRACKS_SUCCESS:
       return {...state, getTracksProcess:false, tracks:action.payload.tracks}
     case constants.UPLOAD_TRACK:
-      return {...state, uploadTrackProgress:true}
+      return {
+        ...state,
+        uploadTrackProgress:true,
+        trackEditFormValidProps: {
+          ...state.trackEditFormValidProps,
+          fileName:true,
+        }
+      }
     case constants.UPLOAD_TRACK_SUCCESS:
       return {
         ...state,
@@ -44,15 +51,16 @@ export default function update(state = initialState, action) {
           [action.payload.key]:action.payload.value
         }
       }
-    case constants.ADD_TRACK:
+    case constants.SAVE_TRACK:
       return {...state, addTrackPocess:true}
-    case constants.ADD_TRACK_SUCCESS:
+    case constants.SAVE_TRACK_SUCCESS:
       return {
         ...state,
         addTrackPocess:false,
         toTracksList:true,
         trackEditFormValidProps:{},
         trackEditFormValid:true,
+
       }
     case constants.VALIDATION_ERROR:
       return {
@@ -78,6 +86,11 @@ export default function update(state = initialState, action) {
         ...state,
         trackEditForm:action.payload.track
       }
+    case constants.DELETE_TRACK:
+        return {
+          ...state,
+          tracks:state.tracks.filter(t => t.id !== action.payload.trackId)
+        }
     default:
       return state;
   }

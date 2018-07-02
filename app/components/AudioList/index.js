@@ -6,12 +6,12 @@ import "./style.css";
 export const AudioList = (props) => {
   let processOverlay;
   if (props.getTracksProcess) {
-      processOverlay = <div className="audioList__processOverlay"></div>;
+    processOverlay = <div className="audioList__processOverlay"></div>;
   }
 
   return (
     <div className="audioList">
-      {props.tracks.map((track, i) => { return <AudioTrack key={track.id} track={track} ></AudioTrack> })}
+      {props.tracks.map((track, i) => { return <AudioTrack key={track.id} track={track} deleteTrack={props.deleteTrack} ></AudioTrack> })}
       {processOverlay}
     </div>
   );

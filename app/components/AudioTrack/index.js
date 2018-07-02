@@ -17,7 +17,10 @@ export const AudioTrack = (props) => {
         <Icon>edit</Icon>
       </Link>
 
-      <Icon>delete</Icon>
+      <span onClick={() => {props.deleteTrack(track.id)}} className="audioTrack__delete">
+        <Icon>delete</Icon>
+      </span>
+
     </div>
   )
 }

@@ -1,27 +1,27 @@
-.audioTrack {
+.playListItem {
   line-height: 70px;
   padding: 0 20px;
   border-bottom: 1px solid #efefef;
 }
 
-.audioTrack:hover {
+.playListItem:hover {
   background-color: #fff;
 }
 
-.audioTrack__name {
+.playListItem__name {
   display: inline-block;
   vertical-align: top;
   width: 400px;
   margin-right: 4px;
 }
 
-.audioTrack__edit {
+.playListItem__edit {
   display: inline-block;
   vertical-align: top;
   margin:0 7px !important;
 }
 
-.audioTrack__delete {
+.playListItem__delete {
   display: inline-block;
   vertical-align: top;
   margin:0 7px !important;

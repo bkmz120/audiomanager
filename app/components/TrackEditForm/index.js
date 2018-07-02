@@ -7,7 +7,7 @@ import {connect} from "react-redux";
 import { Redirect } from 'react-router-dom';
 
 import FileUpload from "../FileUpload";
-import {changeEditForm, uploadTrack, addTrack, initEditForm, openTrackEdit} from "../../actions/audio"
+import {changeEditForm, uploadTrack, saveTrack, initEditForm, openTrackEdit} from "../../actions/audio"
 import "./style.css";
 
 
@@ -15,6 +15,15 @@ class TrackEditForm extends Component {
 
   constructor(props) {
     super(props);
+
+    if (this.props.trackId === undefined) {
+      this.state = { newTrack: true };
+    }
+    else {
+      this.state = { newTrack: false };
+    }
+
+    console.log(this.props.trackId,this.state);
   }
 
   componentDidMount() {
@@ -96,13 +105,11 @@ class TrackEditForm extends Component {
               variant="contained"
               color="primary"
               className="AudioEditForm__addBtn"
-              onClick={() => {this.props.addTrack() } }
+              onClick={() => {this.props.saveTrack(this.state.newTrack) } }
             >
               Save
             </Button>
             {addTrackPocessAnimation}
-
-
           </form>
       </div>
     );
@@ -122,7 +129,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTrack : (track) => dispatch(addTrack()),
+    saveTrack : (newTrack) => dispatch(saveTrack(newTrack)),
     initEditForm: () => dispatch(initEditForm()),
     changeEditForm: (key, value) => dispatch(changeEditForm(key,value)),
     uploadTrack: (file) => dispatch(uploadTrack(file)),

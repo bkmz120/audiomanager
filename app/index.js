@@ -15,7 +15,7 @@ const reducer = combineReducers({
 
 import AudioManager from './containers/AudioManager';
 import {AudioEdit} from './containers/AudioEdit';
-import {PlaylistManager} from './containers/PlaylistManager';
+import PlaylistManager from './containers/PlaylistManager';
 import './styles/common.css';
 
 const store = createStore(

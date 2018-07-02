@@ -55,7 +55,7 @@ export function uploadTrack(file) {
   }
 }
 
-export function addTrack() {
+export function saveTrack(newTrack) {
 
   return function(dispatch, getState) {
     //validation
@@ -87,23 +87,36 @@ export function addTrack() {
     }
     else {
       dispatch({
-        type:constants.ADD_TRACK
+        type:constants.SAVE_TRACK
       });
 
-      axios.post('/api/tracks',track)
+      console.log("newTrack",newTrack);
+
+      if (newTrack) {
+        axios.post('/api/tracks',track)
         .then(function (response) {
           dispatch({
-            type:constants.ADD_TRACK_SUCCESS
+            type:constants.SAVE_TRACK_SUCCESS
           });
         })
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
         });
+      }
+      else {
+        axios.patch('/api/tracks/'+track.id,track)
+        .then(function (response) {
+          dispatch({
+            type:constants.SAVE_TRACK_SUCCESS
+          });
+        })
+        .catch(function (error) {
+          //TODO: add error processing
+          console.log(error);
+        });
+      }
     }
-
-
-
   }
 }
 
@@ -114,7 +127,6 @@ export function initEditForm() {
 }
 
 export function openTrackEdit(trackId) {
-
   return function(dispatch) {
     axios.get('/api/tracks/'+trackId)
       .then(function (response) {
@@ -124,7 +136,22 @@ export function openTrackEdit(trackId) {
             track:response.data
           }
         });
+      })
+      .catch(function (error) {
+         //TODO: add error processing
+        console.log(error);
+      });
+  }
+}
 
+export function deleteTrack(trackId) {
+  return function(dispatch) {
+    axios.delete('/api/tracks/'+trackId)
+      .then(function (response) {
+        dispatch({
+          type:constants.DELETE_TRACK,
+          payload:{trackId}
+        });
       })
       .catch(function (error) {
          //TODO: add error processing

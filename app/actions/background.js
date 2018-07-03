@@ -1,14 +1,14 @@
 import axios from "axios";
-import * as constants from "../constants/audio";
+import * as constants from "../constants/background";
 
-export function getTracks() {
+export function getBackgrounds() {
   return function(dispatch) {
-     axios.get('/api/tracks')
+     axios.get('/api/backgrounds')
       .then(function (response) {
         dispatch({
-          type:constants.GET_TRACKS_SUCCESS,
+          type:constants.GET_BACKGROUNDS_SUCCESS,
           payload:{
-            tracks:response.data
+            backgrounds:response.data
           }
         });
       })
@@ -26,23 +26,23 @@ export function changeEditForm(key,value) {
   }
 }
 
-export function uploadTrack(file) {
+export function uploadBackground(file) {
   return function(dispatch) {
     dispatch({
-      type:constants.UPLOAD_TRACK
+      type:constants.UPLOAD_BACKGROUND
     });
 
     let fd = new FormData();
-    fd.append('trackFile', file);
+    fd.append('file', file);
     axios
-      .post('/api/tracks/uploadtrack', fd, {
+      .post('/api/backgrounds/uploadfile', fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       })
       .then(function (response) {
           dispatch({
-            type:constants.UPLOAD_TRACK_SUCCESS,
+            type:constants.UPLOAD_BACKGROUND_SUCCESS,
             payload:{
               fileName:file.name
             }
@@ -55,23 +55,23 @@ export function uploadTrack(file) {
   }
 }
 
-export function saveTrack(newTrack) {
+export function saveBackground(newBackground) {
 
   return function(dispatch, getState) {
     //validation
     let state = getState();
-    let track = state.audio.trackEditForm;
+    let background = state.background.backgroundEditForm;
     let valid = true;
     let validProps = {
       title:true,
       fileName:true,
     }
 
-    if (track.title === undefined || track.title === "") {
+    if (background.title === undefined || background.title === "") {
       validProps.title = false;
       valid = false;
     }
-    if (track.fileName === undefined || track.fileName === "") {
+    if (background.fileName === undefined || background.fileName === "") {
       validProps.fileName = false;
       valid = false;
     }
@@ -81,22 +81,20 @@ export function saveTrack(newTrack) {
       dispatch({
         type:constants.VALIDATION_ERROR,
         payload:{
-          trackEditFormValidProps:validProps,
+          backgroundEditFormValidProps:validProps,
         }
       });
     }
     else {
       dispatch({
-        type:constants.SAVE_TRACK
+        type:constants.SAVE_BACKGROUND
       });
 
-      console.log("newTrack",newTrack);
-
-      if (newTrack) {
-        axios.post('/api/tracks',track)
+      if (newBackground) {
+        axios.post('/api/backgrounds',background)
         .then(function (response) {
           dispatch({
-            type:constants.SAVE_TRACK_SUCCESS
+            type:constants.SAVE_BACKGROUND_SUCCESS
           });
         })
         .catch(function (error) {
@@ -105,10 +103,10 @@ export function saveTrack(newTrack) {
         });
       }
       else {
-        axios.patch('/api/tracks/'+track.id,track)
+        axios.patch('/api/backgrounds/'+background.id,background)
         .then(function (response) {
           dispatch({
-            type:constants.SAVE_TRACK_SUCCESS
+            type:constants.SAVE_BACKGROUND_SUCCESS
           });
         })
         .catch(function (error) {
@@ -126,14 +124,14 @@ export function initEditForm() {
   }
 }
 
-export function openTrackEdit(trackId) {
+export function openBackgroundEdit(backgroundId) {
   return function(dispatch) {
-    axios.get('/api/tracks/'+trackId)
+    axios.get('/api/backgrounds/'+backgroundId)
       .then(function (response) {
         dispatch({
-          type:constants.OPEN_TRACK_EDIT,
+          type:constants.OPEN_BACKGROUND_EDIT,
           payload:{
-            track:response.data
+            background:response.data
           }
         });
       })
@@ -144,13 +142,13 @@ export function openTrackEdit(trackId) {
   }
 }
 
-export function deleteTrack(trackId) {
+export function deleteBackground(backgroundId) {
   return function(dispatch) {
-    axios.delete('/api/tracks/'+trackId)
+    axios.delete('/api/backgrounds/'+backgroundId)
       .then(function (response) {
         dispatch({
-          type:constants.DELETE_TRACK,
-          payload:{trackId}
+          type:constants.DELETE_BACKGROUND,
+          payload:{backgroundId}
         });
       })
       .catch(function (error) {

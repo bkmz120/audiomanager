@@ -16,6 +16,9 @@ const reducer = combineReducers({
 import AudioManager from './containers/AudioManager';
 import {AudioEdit} from './containers/AudioEdit';
 import PlaylistManager from './containers/PlaylistManager';
+import {PlaylistEdit} from './containers/PlaylistEdit';
+import BackgroundManager from './containers/BackgroundManager';
+import {BackgroundEdit} from './containers/BackgroundEdit';
 import './styles/common.css';
 
 const store = createStore(
@@ -35,6 +38,10 @@ const App = () => (
         <Route exact name='audioNew' path='/audio/new' component={AudioEdit} />
         <Route exact name='audioEdit' path='/audio/edit/:id' component={AudioEdit} />
         <Route exact name='playlistManager' path='/playlist' component={PlaylistManager} />
+        <Route exact name='playlistEdit' path='/playlist/edit/:id' component={PlaylistEdit} />
+        <Route exact name='backgroundManager' path='/background' component={BackgroundManager} />
+        <Route exact name='backgroundNew' path='/background/new' component={BackgroundEdit} />
+        <Route exact name='backgroundEdit' path='/background/edit/:id' component={BackgroundEdit} />
       </Switch>
     </Router>
   </Provider>

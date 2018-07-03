@@ -1,20 +1,20 @@
-.playlistManager {
+.backgroundManager {
 
 }
 
-.audioManage__backBtn {
+.backgroundManage__backBtn {
 
 }
 
-.playlistManager__list {
+.backgroundManager__list {
   display: inline-block;
   vertical-align: top;
-  width: 720px;
+  width: 520px;
   margin-left: 18px;
   margin-right: 30px;
 }
 
-.playlistManager__addBtn {
+.backgroundManager__addBtn {
     display: inline-block;
     vertical-align: top;
 }

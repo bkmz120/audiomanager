@@ -64,6 +64,20 @@ $config = [
                         'POST uploadtrack' => 'uploadtrack',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'playlist',
+                    'extraPatterns' => [
+                        'GET test' => 'test',
+                    ],
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'background',
+                    'extraPatterns' => [
+                        'POST uploadfile' => 'uploadfile',
+                    ],
+                ],
             ],
         ],
 

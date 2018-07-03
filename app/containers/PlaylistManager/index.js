@@ -6,12 +6,14 @@ import MainWrapper from '../MainWrapper';
 import {connect} from "react-redux";
 
 import {PlaylistList} from '../../components/PlaylistList';
+import {getPlaylists} from '../../actions/playlist';
+import "./style.css";
 
 
 export class PlaylistManager extends Component {
 
   componentDidMount() {
-    // this.props.getTracks();
+    this.props.getPlaylists();
   }
 
   render() {
@@ -38,9 +40,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      getTracks : () => dispatch(getTracks()),
-      deleteTrack: (trackId) => dispatch(deleteTrack(trackId)),
+      getPlaylists : () => dispatch(getPlaylists()),
   }
 }
 
-export default connect(mapStateToProps)(PlaylistManager);
+export default connect(mapStateToProps,mapDispatchToProps)(PlaylistManager);

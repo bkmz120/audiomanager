@@ -22,7 +22,7 @@ export class Nav extends React.Component {
         <Tabs value={value} onChange={this.handleChange} >
           <Tab component={Link} to="/audio"  label="Audio Manager" />
           <Tab component={Link} to="/playlist" label="Playlist Manager" />
-          <Tab label="Background Manager"/>
+          <Tab component={Link} to="/background" label="Background Manager"/>
         </Tabs>
       </AppBar>
     )

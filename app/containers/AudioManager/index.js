@@ -5,7 +5,7 @@ import {Link } from 'react-router-dom';
 import {connect} from "react-redux";
 
 import MainWrapper from '../MainWrapper';
-import {AudioList} from '../../components/AudioList';
+import {TrackList} from '../../components/TrackList';
 import {getTracks, deleteTrack} from '../../actions/audio';
 
 import "./style.css";
@@ -18,11 +18,22 @@ class AudioManager extends Component {
 
   render() {
     let {tracks} = this.props;
+    let trackListBtns = {
+      addToPlaylist:false,
+      edit:true,
+      delete:true,
+    }
 
     return (
       <MainWrapper className="audioManager">
         <div className="audioManager__list">
-          <AudioList tracks={tracks} deleteTrack={this.props.deleteTrack}></AudioList>
+          <TrackList
+            tracks={tracks}
+            btns={trackListBtns}
+            deleteCallback={this.props.deleteTrack}
+            draggable={false}
+          >
+          </TrackList>
         </div>
         <Button variant="contained" component={Link} to="/audio/new" color="primary" className="audioManager__addBtn">
           <Icon>add</Icon>Add track

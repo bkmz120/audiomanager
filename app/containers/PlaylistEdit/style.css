@@ -1,0 +1,24 @@
+.playlistEdit__lists {
+  margin-top: 30px;
+}
+
+.playlistEdit__listTitle {
+  font-size: 19px;
+  color: #b0b0b0;
+  margin-bottom: 20px;
+  font-style: italic;
+  padding-left: 20px;
+}
+
+.playlistEdit__allTracks {
+  display: inline-block;
+  vertical-align: top;
+  width: 400px;
+  margin-right: 50px;
+}
+
+.playlistEdit__playlistTracks {
+  display: inline-block;
+  vertical-align: top;
+  width: 400px;
+}

@@ -1,0 +1,41 @@
+.trackItem {
+  line-height: 70px;
+  padding: 0 20px;
+  border-bottom: 1px solid #efefef;
+}
+
+.trackItem:hover {
+  background-color: #fff;
+}
+
+.trackItem__name {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 4px;
+}
+
+.trackItem__btns {
+  display: inline-block;
+  vertical-align: top;
+  float: right;
+}
+
+.trackItem__edit {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 7px !important;
+}
+
+.trackItem__delete {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 7px !important;
+  cursor: pointer;
+}
+
+.trackItem__addToPlaylist {
+  display: inline-block;
+  vertical-align: top;
+  margin:0 7px !important;
+  cursor: pointer;
+}

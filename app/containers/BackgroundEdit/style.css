@@ -1,0 +1,15 @@
+.backgroundEdit {
+  padding: 10px 10px 30px;
+  background: #fff;
+  background-color: #fff;
+  box-shadow: 2px 3px 5px 0px rgb(232, 232, 232);
+}
+
+.backgroundEdit__backBtn {
+
+}
+
+.backgroundEdit__form {
+  margin-left: 20px;
+  margin-top: 20px;
+}

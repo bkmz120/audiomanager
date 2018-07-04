@@ -1,5 +1,5 @@
 .trackItem {
-  line-height: 70px;
+  line-height: 40px;
   padding: 0 20px;
   border-bottom: 1px solid #efefef;
 }
@@ -14,7 +14,16 @@
   margin-right: 4px;
 }
 
-.trackItem__btns {
+.trackItem .material-icons {
+  vertical-align: middle !important;
+}
+
+.trackItem__firstBtns {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.trackItem__endBtns {
   display: inline-block;
   vertical-align: top;
   float: right;
@@ -36,6 +45,7 @@
 .trackItem__addToPlaylist {
   display: inline-block;
   vertical-align: top;
-  margin:0 7px !important;
+  margin-left: 7px !important;
+  margin-right: 14px !important;
   cursor: pointer;
 }

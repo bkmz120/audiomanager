@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "playlists".
  *
  * @property int $id
- * @property string $name
+ * @property string $title
  * @property int $current
  */
 class Playlists extends \yii\db\ActiveRecord
@@ -27,9 +27,9 @@ class Playlists extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['title'], 'required'],
             [['current'], 'integer'],
-            [['name'], 'string', 'max' => 255],
+            [['title'], 'string', 'max' => 255],
         ];
     }
 
@@ -40,7 +40,7 @@ class Playlists extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'title' => 'Title',
             'current' => 'Current',
         ];
     }

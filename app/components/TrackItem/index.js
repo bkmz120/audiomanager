@@ -31,18 +31,20 @@ export const TrackItem = (props) => {
   if (props.btns.addToPlaylist) {
     addToPlaylistBtn = (
       <span onClick={() => {props.addToPlaylistCallback(track.id)}} className="trackItem__addToPlaylist">
-        <Icon>arrow_forward_ios</Icon>
+        <Icon>add</Icon>
       </span>
     );
   }
 
   return (
     <div className="trackItem">
+      <div className="trackItem__firstBtns">
+        {addToPlaylistBtn}
+      </div>
       <div className="trackItem__name">{track.title}</div>
-      <div className="trackItem__btns">
+      <div className="trackItem__endBtns">
         {editBtn}
         {deleteBtn}
-        {addToPlaylistBtn}
       </div>
     </div>
   )

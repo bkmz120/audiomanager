@@ -11,7 +11,7 @@ export const PlaylistItem = (props) => {
 
   return (
     <div className="playListItem">
-      <div className="playListItem__name">{playlist.name}</div>
+      <div className="playListItem__name">{playlist.title}</div>
 
       <Link to={"/playlist/edit/" + playlist.id} className="playListItem__edit">
         <Icon>edit</Icon>

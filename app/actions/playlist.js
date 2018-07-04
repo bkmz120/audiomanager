@@ -19,15 +19,19 @@ export function getPlaylists() {
   }
 }
 
-export function openPlayListEdit(playListId) {
+export function openPlaylistEdit(playListId) {
   return function(dispatch) {
-    axios.get('/api/playlists')
+    axios.get('/api/playlists/' + playListId + '?expand=tracks')
       .then(function (response) {
+        let playlist = response.data;
+
+        playlist.tracks.sort(function(a, b){
+          return playlist.tracks_order.indexOf(a.id) - playlist.tracks_order.indexOf(b.id);
+        });
+
         dispatch({
           type:constants.OPEN_PLAYLIST_EDIT,
-          payload:{
-            playlists:response.data
-          }
+          payload:{playlist:response.data}
         });
       })
       .catch(function (error) {

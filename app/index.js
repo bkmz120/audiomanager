@@ -16,7 +16,7 @@ const reducer = combineReducers({
 import AudioManager from './containers/AudioManager';
 import {AudioEdit} from './containers/AudioEdit';
 import PlaylistManager from './containers/PlaylistManager';
-import {PlaylistEdit} from './containers/PlaylistEdit';
+import PlaylistEdit from './containers/PlaylistEdit';
 import BackgroundManager from './containers/BackgroundManager';
 import {BackgroundEdit} from './containers/BackgroundEdit';
 import './styles/common.css';

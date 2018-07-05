@@ -11,6 +11,10 @@ use Yii;
  * @property string $title
  * @property int $current
  * @property string $tracks_order
+ * @property int $current_track_num
+ * @property int $playlist_changed
+ * @property int $current_background_id
+ * @property int $backgrounds_changed
  *
  * @property PlaylistTracks[] $playlistTracks
  */
@@ -31,7 +35,7 @@ class Playlists extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'tracks_order'], 'required'],
-            [['current'], 'integer'],
+            [['current','current_track_num','playlist_changed','current_background_id','backgrounds_changed'], 'integer'],
             [['tracks_order'], 'string'],
             [['title'], 'string', 'max' => 255],
         ];
@@ -47,6 +51,8 @@ class Playlists extends \yii\db\ActiveRecord
             'title' => 'Title',
             'current' => 'Current',
             'tracks_order' => 'Tracks Order',
+            'current_track' => 'Current Track',
+            'changed' => 'Changed'
         ];
     }
 

@@ -33,12 +33,5 @@ class PlaylistController extends ActiveController
       return $playlist;
     }
 
-    public function actionTest() {
-      $playlists = Playlists::find()->with('playlisttracks.track')->asArray()->all();
-
-      \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-      return $playlists;
-    }
-
 
 }

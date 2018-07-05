@@ -4,7 +4,7 @@ use \yii\web\Request;
 $baseUrl = str_replace('/web', '', (new Request)->getBaseUrl());
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+$db = require __DIR__ . '/../../config/db.php';
 
 $config = [
     'id' => 'basic',

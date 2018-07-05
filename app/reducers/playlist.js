@@ -111,10 +111,27 @@ export default function update(state = initialState, action) {
         }
       }
     case constants.DELETE_PLAYLIST_SUCCESS:
-        return {
-          ...state,
-          playlists:state.playlists.filter(p => p.id !== action.payload.playlistId)
+      return {
+        ...state,
+        playlists:state.playlists.filter(p => p.id !== action.payload.playlistId)
+      }
+    case constants.SET_CURRENT_PLAYLIST:
+      let playlists = [];
+      for (let i=0;i<state.playlists.length;i++) {
+        let playlist = Object.assign({},state.playlists[i]);
+        if (playlist.id==action.payload.playlistId) {
+          playlist.current = 1;
         }
+        else {
+          playlist.current = 0;
+        }
+        playlists.push(playlist);
+      }
+
+      return {
+        ...state,
+        playlists,
+      }
     default:
       return state;
   }

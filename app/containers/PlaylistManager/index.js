@@ -6,7 +6,7 @@ import MainWrapper from '../MainWrapper';
 import {connect} from "react-redux";
 
 import {PlaylistList} from '../../components/PlaylistList';
-import {getPlaylists,deletePlaylist} from '../../actions/playlist';
+import {getPlaylists,deletePlaylist, setCurrentPlaylist} from '../../actions/playlist';
 import "./style.css";
 
 
@@ -22,7 +22,11 @@ export class PlaylistManager extends Component {
     return (
       <MainWrapper className="playlistManager">
         <div className="playlistManager__list">
-          <PlaylistList playlists={playlists} deletePlaylist={this.props.deletePlaylist}></PlaylistList>
+          <PlaylistList
+            playlists={playlists}
+            deletePlaylist={this.props.deletePlaylist}
+            setCurrent={this.props.setCurrentPlaylist}
+          />
         </div>
         <Button variant="contained" component={Link} to="/playlist/new" color="primary" className="playlistManager__addBtn">
           <Icon>add</Icon>Add playlist
@@ -42,6 +46,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
       getPlaylists : () => dispatch(getPlaylists()),
       deletePlaylist: (playlistId) => dispatch(deletePlaylist(playlistId)),
+      setCurrentPlaylist: (playlistId) => dispatch(setCurrentPlaylist(playlistId))
   }
 }
 

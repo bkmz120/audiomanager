@@ -104,26 +104,29 @@ class PlaylistEdit extends Component {
         <div className="playlistEdit__lists">
           <div className="playlistEdit__playlistTracks">
             <div className="playlistEdit__listTitle">Playlist tracks</div>
-            <TrackList
-              tracks={this.state.playlist.tracks}
-              btns={playlistTrackListBtns}
-              draggable={true}
-              deleteCallback= {(trackId,idInPlaylist) => {this.props.deleteTrackFromPlaylist(this.state.playlist,idInPlaylist) }}
-              orderChangeCallback = { (oldIndex,newIndex) => {this.props.changePlaylistOrder(this.state.playlist,oldIndex,newIndex)} }
-            >
-            </TrackList>
+
+            <div className="playlistEdit__listContainer">
+              <TrackList
+                tracks={this.state.playlist.tracks}
+                btns={playlistTrackListBtns}
+                draggable={true}
+                deleteCallback= {(trackId,idInPlaylist) => {this.props.deleteTrackFromPlaylist(this.state.playlist,idInPlaylist) }}
+                orderChangeCallback = { (oldIndex,newIndex) => {this.props.changePlaylistOrder(this.state.playlist,oldIndex,newIndex)} }
+              />
+            </div>
           </div>
 
           <div className="playlistEdit__allTracks">
             <div className="playlistEdit__listTitle">All tracks</div>
-            <TrackList
-              tracks={this.props.allTracks}
-              btns={allTrackListBtns}
-              draggable={false}
-              addToPlaylistCallback = { (track) =>  {this.props.addTrackToPlaylist(this.state.playlist, track)} }
-              addToPlaylistBlock = {this.props.addTrackProcess}
-            >
-            </TrackList>
+            <div className="playlistEdit__listContainer">
+              <TrackList
+                tracks={this.props.allTracks}
+                btns={allTrackListBtns}
+                draggable={false}
+                addToPlaylistCallback = { (track) =>  {this.props.addTrackToPlaylist(this.state.playlist, track)} }
+                addToPlaylistBlock = {this.props.addTrackProcess}
+              />
+            </div>
           </div>
         </div>
       );

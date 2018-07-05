@@ -226,3 +226,19 @@ export function deletePlaylist(playlistId) {
       })
   }
 }
+
+export function setCurrentPlaylist(playlistId) {
+  return function(dispatch) {
+    axios.put('/api/playlists/'+playlistId,{current:1})
+      .then(function (response) {
+        dispatch({
+          type:constants.SET_CURRENT_PLAYLIST,
+          payload:{playlistId}
+        });
+      })
+      .catch(function (error) {
+         //TODO: add error processing
+        console.log(error);
+      })
+  }
+}

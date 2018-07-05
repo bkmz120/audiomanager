@@ -50,49 +50,29 @@ class Playlists extends \yii\db\ActiveRecord
         ];
     }
 
-
-    // public function behaviors()
-    // {
-    //     return [
-    //         [
-    //             'class' => \voskobovich\linker\LinkerBehavior::className(),
-    //             'relations' => [
-    //                 'tracks_ids' => [
-    //                     'tracks',
-    //                     'updater' => [
-    //                         'viaTableAttributesValue' => [
-    //                             'created_at' => function() {
-    //                                 return new \yii\db\Expression('NOW()');
-    //                             },
-    //                         ],
-    //                     ]
-    //                 ]
-    //             ],
-    //         ],
-    //     ];
-    // }
-
     public function getTracks()
     {
         return $this->hasMany(Tracks::className(), ['id' => 'track_id'])
                     ->viaTable('playlist_tracks', ['playlist_id' => 'id']);
-
-        // return $this->hasMany(Tracks::className(), ['id' => 'track_id'])
-        //     ->via('playlisttracks');
-
-
     }
 
     public function getPlaylisttracks() {
         return $this->hasMany(PlaylistTracks::className(), ['playlist_id' => 'id']);
     }
 
-    public function extraFields()
-    {
-        return [
-            // field name is the same as the attribute name
-            'tracks',
-            'playlisttracks'
-        ];
+    public function beforeSave($insert){
+        parent::beforeSave($insert);
+
+        if ($this->current === 1) {
+            $playlists = Playlists::find()->where(['current' => 1])->all();
+            foreach ($playlists as $key => $playlist) {
+                if ($playlist->id!==$this->id) {
+                    $playlist->current = 0;
+                    $playlist->update();
+                }
+            }
+        }
+
+        return true;
     }
 }

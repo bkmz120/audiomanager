@@ -9,6 +9,26 @@ import "./style.css";
 export const PlaylistItem = (props) => {
   let {playlist} = props;
 
+  let setCurrentBtn;
+  if (!playlist.current) {
+    setCurrentBtn = (
+      <span
+        onClick={ () => { props.setCurrent(playlist.id) }}
+        className={"playListItem__setCurrent " + (playlist.current ? 'playListItem__setCurrent_current' : '')}
+      >
+        {playlist.current ? 'current' : 'Set as current'}
+      </span>
+    )
+  }
+  else {
+    setCurrentBtn = (
+      <span className="playListItem__current">
+        <Icon>done</Icon>
+        <span className="playListItem__current-text">Current</span>
+      </span>
+    )
+  }
+
   return (
     <div className="playListItem">
       <div className="playListItem__name">{playlist.title}</div>
@@ -17,14 +37,10 @@ export const PlaylistItem = (props) => {
         <Link to={"/playlist/edit/" + playlist.id} className="playListItem__edit">
           <Icon>edit</Icon>
         </Link>
-
         <span onClick={() => {props.deletePlaylist(playlist.id)}} className="playListItem__delete">
           <Icon>delete</Icon>
         </span>
-
-        <span onClick={() => {props.setCuurentPlaylist(playlist.id)}} className="playListItem__setCurrent">
-          Set current
-        </span>
+        {setCurrentBtn}
       </div>
     </div>
   )

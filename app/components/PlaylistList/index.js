@@ -11,7 +11,16 @@ export const PlaylistList = (props) => {
 
   return (
     <div className="playlistList">
-      {props.playlists.map((playlist, i) => { return <PlaylistItem key={playlist.id} playlist={playlist} deletePlaylist={props.deletePlaylist} ></PlaylistItem> })}
+      {props.playlists.map((playlist, i) => {
+        return (
+          <PlaylistItem
+            key={playlist.id}
+            playlist={playlist}
+            deletePlaylist={props.deletePlaylist}
+            setCurrent={props.setCurrent}
+          />
+        )
+      })}
       {processOverlay}
     </div>
   );

@@ -1,7 +1,7 @@
 .trackList {
   position: relative;
+  min-height: 100%;
   background-color: #fdfdfdf1;
-  box-shadow: 1px 3px 2px 0px rgb(232, 232, 232);
 }
 
 .trackList__processOverlay {

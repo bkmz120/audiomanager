@@ -7,24 +7,57 @@ import {connect} from "react-redux";
 
 import MainWrapper from '../MainWrapper';
 import {TrackList} from '../../components/TrackList';
-import {openPlaylistEdit} from '../../actions/playlist';
+import {
+  initPlaylistEdit,
+  openPlaylistEdit,
+  changePlaylistOrder,
+  addTrackToPlaylist,
+  deleteTrackFromPlaylist,
+  changeFormField,
+  savePlaylist
+} from '../../actions/playlist';
 import {getTracks} from '../../actions/audio';
 import "./style.css";
 
 class PlaylistEdit extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      playlist:{},
+    }
+
+    if (this.props.match.params.id !== undefined) {
+      this.state.newPlaylist = false;
+    }
+    else {
+      this.state.newPlaylist = true;
+    }
+  }
+
   componentDidMount() {
     if (this.props.match.params.id !== undefined) {
       this.props.openPlaylistEdit(this.props.match.params.id);
     }
     this.props.getTracks();
+
   }
 
   componentWillUnmount() {
+    this.props.initPlaylistEdit();
+  }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    //using state for storing playlist for prevent changes playlist tracks in props after dragging
+    return {
+      playlist:{...nextProps.playlistEditable, tracks:nextProps.playlistEditable.tracks.slice()}
+    };
   }
 
   handleChange = (name) => event => {
     // this.props.changeEditForm(name,event.target.value)
+    this.props.changeFormField(name,event.target.value);
   };
 
   render() {
@@ -51,6 +84,52 @@ class PlaylistEdit extends Component {
       }
     ];
 
+    let saveBtn;
+    if (this.props.saveBtnVisible) {
+      saveBtn = (
+        <Button
+          variant="contained"
+          color="primary"
+          className="playlistEdit__saveBtn"
+          onClick={ () => {this.props.savePlaylist(this.state.newPlaylist) } }
+        >
+          Save
+        </Button>
+      );   }
+
+
+    let tracksLists;
+    if (this.state.playlist.id !== undefined) {
+      tracksLists= (
+        <div className="playlistEdit__lists">
+          <div className="playlistEdit__playlistTracks">
+            <div className="playlistEdit__listTitle">Playlist tracks</div>
+            <TrackList
+              tracks={this.state.playlist.tracks}
+              btns={playlistTrackListBtns}
+              draggable={true}
+              deleteCallback= {(trackId,idInPlaylist) => {this.props.deleteTrackFromPlaylist(this.state.playlist,idInPlaylist) }}
+              orderChangeCallback = { (oldIndex,newIndex) => {this.props.changePlaylistOrder(this.state.playlist,oldIndex,newIndex)} }
+            >
+            </TrackList>
+          </div>
+
+          <div className="playlistEdit__allTracks">
+            <div className="playlistEdit__listTitle">All tracks</div>
+            <TrackList
+              tracks={this.props.allTracks}
+              btns={allTrackListBtns}
+              draggable={false}
+              addToPlaylistCallback = { (track) =>  {this.props.addTrackToPlaylist(this.state.playlist, track)} }
+              addToPlaylistBlock = {this.props.addTrackProcess}
+            >
+            </TrackList>
+          </div>
+        </div>
+      );
+    }
+
+
     return (
       <MainWrapper>
         <div className="playlistEdit">
@@ -58,6 +137,7 @@ class PlaylistEdit extends Component {
 
           <div className="playlistEdit__inputs">
             <TextField
+              error={(!this.props.playlistEditableValid && !this.props.playlistEditableValidProps.title ? true : undefined)}
               id="title"
               label="Title"
               required
@@ -65,29 +145,12 @@ class PlaylistEdit extends Component {
               value={this.props.playlistEditable.title}
               onChange={this.handleChange('title')}
             />
+
+            {saveBtn}
           </div>
 
-          <div className="playlistEdit__lists">
-            <div className="playlistEdit__playlistTracks">
-              <div className="playlistEdit__listTitle">Playlist tracks</div>
-              <TrackList
-                tracks={this.props.playlistEditable.tracks}
-                btns={playlistTrackListBtns}
-                draggable={true}
-              >
-              </TrackList>
-            </div>
+          {tracksLists}
 
-            <div className="playlistEdit__allTracks">
-              <div className="playlistEdit__listTitle">All tracks</div>
-              <TrackList
-                tracks={this.props.allTracks}
-                btns={allTrackListBtns}
-                draggable={false}
-              >
-              </TrackList>
-            </div>
-          </div>
         </div>
       </MainWrapper>
     );
@@ -99,13 +162,23 @@ const mapStateToProps = (state, ownProps) => {
     return {
         allTracks : state.audio.tracks,
         playlistEditable: state.playlist.playlistEditable,
-    };
+        addTrackProcess:state.playlist.addTrackProcess,
+        saveBtnVisible: state.playlist.saveBtnVisible,
+        playlistEditableValid:state.playlist.playlistEditableValid,
+        playlistEditableValidProps:state.playlist.playlistEditableValidProps,
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
       getTracks : () => dispatch(getTracks()),
+      initPlaylistEdit: () => dispatch(initPlaylistEdit()),
       openPlaylistEdit: (playlistId) => dispatch(openPlaylistEdit(playlistId)),
+      changePlaylistOrder: (playlist,oldIndex,newIndex) => dispatch(changePlaylistOrder(playlist,oldIndex,newIndex)),
+      addTrackToPlaylist: (playlist, track) => dispatch(addTrackToPlaylist(playlist, track)),
+      deleteTrackFromPlaylist: (playlist, idInPlaylist) => dispatch(deleteTrackFromPlaylist(playlist, idInPlaylist)),
+      changeFormField: (key,value) => dispatch(changeFormField(key,value)),
+      savePlaylist: (newPlaylist) => dispatch(savePlaylist(newPlaylist)),
   }
 }
 

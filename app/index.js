@@ -38,6 +38,7 @@ const App = () => (
         <Route exact name='audioNew' path='/audio/new' component={AudioEdit} />
         <Route exact name='audioEdit' path='/audio/edit/:id' component={AudioEdit} />
         <Route exact name='playlistManager' path='/playlist' component={PlaylistManager} />
+        <Route exact name='playlistNew' path='/playlist/new' component={PlaylistEdit} />
         <Route exact name='playlistEdit' path='/playlist/edit/:id' component={PlaylistEdit} />
         <Route exact name='backgroundManager' path='/background' component={BackgroundManager} />
         <Route exact name='backgroundNew' path='/background/new' component={BackgroundEdit} />

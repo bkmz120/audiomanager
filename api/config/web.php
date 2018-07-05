@@ -73,6 +73,10 @@ $config = [
                 ],
                 [
                     'class' => 'yii\rest\UrlRule',
+                    'controller' => 'playlisttracks',
+                ],
+                [
+                    'class' => 'yii\rest\UrlRule',
                     'controller' => 'background',
                     'extraPatterns' => [
                         'POST uploadfile' => 'uploadfile',

@@ -45,7 +45,7 @@ class PlaylistTracks extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'playlist_id' => 'Playlist ID',
-            'track_id' => 'Track ID',
+            'track_id' => 'Track ID'
         ];
     }
 
@@ -63,5 +63,13 @@ class PlaylistTracks extends \yii\db\ActiveRecord
     public function getTrack()
     {
         return $this->hasOne(Tracks::className(), ['id' => 'track_id']);
+    }
+
+    public function extraFields()
+    {
+        return [
+            // field name is the same as the attribute name
+            'track',
+        ];
     }
 }

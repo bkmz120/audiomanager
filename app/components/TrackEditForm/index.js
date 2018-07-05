@@ -23,7 +23,6 @@ class TrackEditForm extends Component {
       this.state = { newTrack: false };
     }
 
-    console.log(this.props.trackId,this.state);
   }
 
   componentDidMount() {

@@ -21,16 +21,26 @@ export const TrackItem = (props) => {
   let deleteBtn;
   if (props.btns.delete) {
     deleteBtn = (
-      <span onClick={() => {props.deleteCallback(track.id)}} className="trackItem__delete">
+      <span onClick={() => {props.deleteCallback(track.id, track.idInPlaylist)}} className="trackItem__delete">
         <Icon>delete</Icon>
       </span>
     );
   }
 
+
   let addToPlaylistBtn;
   if (props.btns.addToPlaylist) {
+    let addToPlaylistBlock = false;
+    if (props.addToPlaylistBlock===true) {
+      addToPlaylistBlock = true;
+    }
     addToPlaylistBtn = (
-      <span onClick={() => {props.addToPlaylistCallback(track.id)}} className="trackItem__addToPlaylist">
+      <span
+        onClick={() => {
+          if (!addToPlaylistBlock) props.addToPlaylistCallback(track)
+        }}
+        className={"trackItem__addToPlaylist " + (addToPlaylistBlock ? 'trackItem__addToPlaylist_disabled':'')}
+      >
         <Icon>add</Icon>
       </span>
     );

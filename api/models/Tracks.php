@@ -15,6 +15,7 @@ use Yii;
  */
 class Tracks extends \yii\db\ActiveRecord
 {
+
     /**
      * {@inheritdoc}
      */
@@ -48,4 +49,9 @@ class Tracks extends \yii\db\ActiveRecord
             'fileName' => 'File Name',
         ];
     }
+
+    public function getPlaylisttrack() {
+        return $this->hasMany(PlaylistTracks::className(), ['track_id' => 'id']);
+    }
+
 }

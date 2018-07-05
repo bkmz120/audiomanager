@@ -13,18 +13,19 @@ export const PlaylistItem = (props) => {
     <div className="playListItem">
       <div className="playListItem__name">{playlist.title}</div>
 
-      <Link to={"/playlist/edit/" + playlist.id} className="playListItem__edit">
-        <Icon>edit</Icon>
-      </Link>
+      <div className="playListItem__btns">
+        <Link to={"/playlist/edit/" + playlist.id} className="playListItem__edit">
+          <Icon>edit</Icon>
+        </Link>
 
-      <span onClick={() => {props.deletePlaylist(playlist.id)}} className="playListItem__delete">
-        <Icon>delete</Icon>
-      </span>
+        <span onClick={() => {props.deletePlaylist(playlist.id)}} className="playListItem__delete">
+          <Icon>delete</Icon>
+        </span>
 
-      <span onClick={() => {props.deletePlaylist(playlist.id)}} className="playListItem__setCurrent">
-        Set current
-      </span>
-
+        <span onClick={() => {props.setCuurentPlaylist(playlist.id)}} className="playListItem__setCurrent">
+          Set current
+        </span>
+      </div>
     </div>
   )
 }

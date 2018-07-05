@@ -49,3 +49,8 @@
   margin-right: 14px !important;
   cursor: pointer;
 }
+
+.trackItem__addToPlaylist_disabled {
+  cursor: default;
+  opacity: 0.1;
+}

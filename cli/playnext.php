@@ -4,11 +4,17 @@ use app\models\Playlists;
 use app\models\PlaylistTracks;
 use app\models\Tracks;
 use app\models\Backgrounds;
+use app\models\Logs;
 
 
 $playlist = Playlists::find()
     ->where(['current'=>1])
     ->one();
+
+if ($playlist==null) {
+  echo "Current playlist don't set";
+  return;
+}
 
 //get track
 
@@ -69,9 +75,25 @@ $result = [
   'track_artist' => $track['artist'],
   'track_description' => $track['description'],
   'track_location' => UPLOAD_TRACKS_DIR.$track['fileName'],
+  'background_title' => $background['title'],
   'background_location' => UPLOAD_BACKGROUNDS_DIR.$background['fileName'],
 ];
 
+//data for save in database
+$historyItem = [
+  $result['playlist'],
+  $result['track_name'],
+  $result['background_title'],
+  date("d-m-Y"),
+  date("h:i:s")
+];
+
+$history = new Logs();
+$history->log = json_encode($historyItem);
+$history->save();
+
+
+//row for print
 $resultText = $result['playlist'].' | '.
               $result['track_name'].' | '.
               $result['track_artist'].' | '.

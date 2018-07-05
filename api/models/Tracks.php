@@ -54,4 +54,43 @@ class Tracks extends \yii\db\ActiveRecord
         return $this->hasMany(PlaylistTracks::className(), ['track_id' => 'id']);
     }
 
+    public function beforeDelete()
+    {
+        if (!parent::beforeDelete()) {
+            return false;
+        }
+
+        //check is there the track in some playlist
+        $playlistTracks = PlaylistTracks::find()
+            ->where(['track_id'=>$this->id])
+            ->all();
+
+        $playlists = [];
+
+        foreach ($playlistTracks as $key => $playlistTrack) {
+            if (!isset($playlists[$playlistTrack->playlist_id])) {
+                $playlist = Playlists::find()
+                    ->where(['id'=> $playlistTrack->playlist_id])
+                    ->one();
+                $playlists[$playlistTrack->playlist_id] = $playlist;
+            }
+
+            $tracks_order = json_decode($playlists[$playlistTrack->playlist_id]->tracks_order);
+            $new_tracks_order = [];
+            foreach ($tracks_order as $key => $value) {
+                if ($value!==$playlistTrack->id) {
+                    $new_tracks_order[] = $value;
+                }
+            }
+
+            $playlists[$playlistTrack->playlist_id]->tracks_order = json_encode($new_tracks_order);
+        }
+
+        foreach ($playlists as $key => $playlist) {
+            $playlist->update();
+        }
+
+        return true;
+    }
+
 }

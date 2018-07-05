@@ -66,19 +66,42 @@ class Playlists extends \yii\db\ActiveRecord
         return $this->hasMany(PlaylistTracks::className(), ['playlist_id' => 'id']);
     }
 
-    public function beforeSave($insert){
-        parent::beforeSave($insert);
+    public function afterSave($insert, $changedAttributes)
+    {
+         parent::afterSave($insert, $changedAttributes);
+         if(!$insert)
+         {
+            $needUpdate = false;
+            //if playlist set as current than remove current flag from other playlist
+            if ($changedAttributes['current']===0) {
+                $playlists = Playlists::find()->where(['current' => 1])->all();
+                foreach ($playlists as $key => $playlist) {
+                    if ($playlist->id!==$this->id) {
+                        $playlist->current = 0;
+                        $playlist->update();
+                    }
+                }
 
-        if ($this->current === 1) {
-            $playlists = Playlists::find()->where(['current' => 1])->all();
-            foreach ($playlists as $key => $playlist) {
-                if ($playlist->id!==$this->id) {
-                    $playlist->current = 0;
-                    $playlist->update();
+                if ($this->current_track_num!=0) {
+                    $this->current_track_num = 0;
+                    $needUpdate = true;
+                }
+
+                if ($this->playlist_changed!=0) {
+                    $this->playlist_changed = 0;
+                    $needUpdate = true;
                 }
             }
-        }
 
-        return true;
+            //if playlist is current and tracks_order was changed set playlist_changed flag
+            if ($this->current && isset($changedAttributes['tracks_order'])) {
+                $this->playlist_changed = 1;
+                $needUpdate = true;
+            }
+
+            if ($needUpdate) {
+                $this->update();
+            }
+         }
     }
 }

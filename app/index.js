@@ -19,6 +19,7 @@ import PlaylistManager from './containers/PlaylistManager';
 import PlaylistEdit from './containers/PlaylistEdit';
 import BackgroundManager from './containers/BackgroundManager';
 import {BackgroundEdit} from './containers/BackgroundEdit';
+import HistoryManager from './containers/HistoryManager';
 import './styles/common.css';
 
 const store = createStore(
@@ -43,6 +44,7 @@ const App = () => (
         <Route exact name='backgroundManager' path='/background' component={BackgroundManager} />
         <Route exact name='backgroundNew' path='/background/new' component={BackgroundEdit} />
         <Route exact name='backgroundEdit' path='/background/edit/:id' component={BackgroundEdit} />
+        <Route exact name='historyManager' path='/history' component={HistoryManager} />
       </Switch>
     </Router>
   </Provider>

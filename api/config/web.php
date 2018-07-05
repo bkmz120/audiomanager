@@ -82,6 +82,10 @@ $config = [
                         'POST uploadfile' => 'uploadfile',
                     ],
                 ],
+                [
+                    'class' => 'yii\rest\UrlRule',
+                    'controller' => 'log',
+                ],
             ],
         ],
 

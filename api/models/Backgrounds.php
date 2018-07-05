@@ -43,4 +43,25 @@ class Backgrounds extends \yii\db\ActiveRecord
             'fileName' => 'File Name',
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+        if($insert)
+        {
+            Yii::$app->db->createCommand()
+                ->update('playlists', ['backgrounds_changed' => 1], 'current = 1')
+                ->execute();
+        }
+    }
+
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        Yii::$app->db->createCommand()
+                ->update('playlists', ['backgrounds_changed' => 1], 'current = 1')
+                ->execute();
+
+    }
 }

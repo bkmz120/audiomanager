@@ -85,6 +85,10 @@ $config = [
                 [
                     'class' => 'yii\rest\UrlRule',
                     'controller' => 'log',
+                    'extraPatterns' => [
+                        'POST clear' => 'clear',
+                        'GET csv' => 'csv'
+                    ],
                 ],
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',

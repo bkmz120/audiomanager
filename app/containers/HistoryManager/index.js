@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 
 import MainWrapper from '../MainWrapper';
 import {HistoryList} from '../../components/HistoryList';
-import {getHistory} from '../../actions/history';
+import {getHistory,clearHistory} from '../../actions/history';
 
 import "./style.css";
 
@@ -20,6 +20,24 @@ class HistoryManager extends Component {
     let {historyItems} = this.props;
     return (
       <MainWrapper className="historyManager">
+        <div className="historyManager__btns">
+          <Button
+            variant="contained"
+            color="primary"
+            className="historyManager__clearBtn"
+            onClick={() => {this.props.clearHistory() } }
+          >
+            Purge history
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            className="historyManager__csvBtn"
+            target="_blank"
+            href="/api/logs/csv"
+          >Download CSV</Button>
+        </div>
         <HistoryList historyItems={historyItems} />
       </MainWrapper>
     );
@@ -35,6 +53,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     getHistory : () => dispatch(getHistory()),
+    clearHistory : () => dispatch(clearHistory()),
   }
 }
 

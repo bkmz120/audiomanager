@@ -2,9 +2,17 @@
 
 }
 
-.historyManage__backBtn {
-
+.historyManager__btns {
+  margin-bottom: 30px;
 }
+
+.historyManager__clearBtn {
+}
+
+.historyManager__csvBtn {
+  margin-left: 20px !important;
+}
+
 
 .historyManager__list {
   display: inline-block;
@@ -15,6 +23,6 @@
 }
 
 .historyManager__addBtn {
-    display: inline-block;
-    vertical-align: top;
+
 }
+

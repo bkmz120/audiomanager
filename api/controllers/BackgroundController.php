@@ -12,7 +12,7 @@ class BackgroundController extends ActiveController
     public function checkAccess($action, $model = null, $params = [])
     {
         if (Yii::$app->user->isGuest) {
-            throw new \yii\web\ForbiddenHttpException(sprintf('You can only %s articles that you\'ve created.', $action));
+            throw new \yii\web\ForbiddenHttpException(sprintf('ForbiddenHttpException.', $action));
         }
     }
 

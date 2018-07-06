@@ -13,7 +13,7 @@ export class Nav extends React.Component {
 
 
   handleChange = (event, value) => {
-    this.props.changeTab(value);
+    //this.props.changeTab(value);
   };
 
   render() {

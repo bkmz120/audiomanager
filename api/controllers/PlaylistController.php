@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use yii\rest\ActiveController;
 use app\models\Playlists;
 use yii\helpers\Json;
@@ -9,6 +10,13 @@ use yii\helpers\Json;
 class PlaylistController extends ActiveController
 {
     public $modelClass = 'app\models\Playlists';
+
+    public function checkAccess($action, $model = null, $params = [])
+    {
+        if (Yii::$app->user->isGuest) {
+            throw new \yii\web\ForbiddenHttpException(sprintf('You can only %s articles that you\'ve created.', $action));
+        }
+    }
 
     public function actions()
     {

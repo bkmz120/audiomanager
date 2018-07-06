@@ -38,7 +38,6 @@ class AudioManager extends Component {
         <Button variant="contained" component={Link} to="/audio/new" color="primary" className="audioManager__addBtn">
           <Icon>add</Icon>Add track
         </Button>
-
       </MainWrapper>
     );
   }

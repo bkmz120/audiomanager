@@ -1,0 +1,6 @@
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const CHANGE_FORM_FIELD = 'CHANGE_FORM_FIELD';
+export const VALIDATION_ERROR = 'VALIDATION_ERROR';
+export const INIT_FORM = 'INIT_FORM';
+export const LOGOUT = 'LOGOUT';
+

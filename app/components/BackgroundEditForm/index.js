@@ -46,7 +46,7 @@ class BackgroundEditForm extends Component {
 
     let addBackgroundPocessAnimation;
     if (this.props.addBackgroundPocess) {
-      addBackgroundPocessAnimation = <CircularProgress className="backgroundEditForm__progress" />
+      addBackgroundPocessAnimation = <CircularProgress className="backgroundEditForm__saveProgress" />
     }
 
     let fileName;
@@ -57,6 +57,12 @@ class BackgroundEditForm extends Component {
       fileName = "Choose background file* :";
     }
 
+
+    let uploadProgressAnimation;
+    if (this.props.uploadBackgroundProgress) {
+      uploadProgressAnimation = <CircularProgress className="backgroundEditForm__uploadProgress" />;
+    }
+
     return (
       <div className="backgroundEditForm">
         <div className="backgroundEditForm__fileLine">
@@ -64,6 +70,8 @@ class BackgroundEditForm extends Component {
             {fileName}
           </div>
           <FileUpload upload={this.props.uploadBackground}></FileUpload>
+          {uploadProgressAnimation}
+          <div className="backgroundEditForm__fileError">{this.props.backgroundFileErrorMessage}</div>
         </div>
         <form noValidate autoComplete="off" className="backgroundEditForm__form">
             <div>
@@ -79,15 +87,17 @@ class BackgroundEditForm extends Component {
               />
             </div>
 
-            <Button
-              variant="contained"
-              color="primary"
-              className="backgroundEditForm__addBtn"
-              onClick={() => {this.props.saveBackground(this.state.newBackground) } }
-            >
-              Save
-            </Button>
-            {addBackgroundPocessAnimation}
+            <div className="backgroundEditForm__saveLine">
+              <Button
+                variant="contained"
+                color="primary"
+                className="backgroundEditForm__addBtn"
+                onClick={() => {this.props.saveBackground(this.state.newBackground) } }
+              >
+                Save
+              </Button>
+              {addBackgroundPocessAnimation}
+            </div>
           </form>
       </div>
     );
@@ -102,6 +112,8 @@ const mapStateToProps = (state, ownProps) => {
     backgroundEditForm:state.background.backgroundEditForm,
     backgroundEditFormValidProps:state.background.backgroundEditFormValidProps,
     backgroundEditFormValid:state.background.backgroundEditFormValid,
+    backgroundFileErrorMessage:state.background.backgroundFileErrorMessage,
+    uploadBackgroundProgress:state.background.uploadBackgroundProgress,
   }
 }
 

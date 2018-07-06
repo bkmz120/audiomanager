@@ -13,6 +13,7 @@ const initialState = {
   backgroundEditFormValid:true,
   getBackgroundsProcess: false,
   uploadBackgroundProgress:false,
+  backgroundFileErrorMessage:"",
   addBackgroundPocess:false,
   toBackgroundsList:false,
 }
@@ -30,7 +31,8 @@ export default function update(state = initialState, action) {
         backgroundEditFormValidProps: {
           ...state.backgroundEditFormValidProps,
           fileName:true,
-        }
+        },
+        backgroundFileErrorMessage:'',
       }
     case constants.UPLOAD_BACKGROUND_SUCCESS:
       return {
@@ -39,7 +41,18 @@ export default function update(state = initialState, action) {
         backgroundEditForm: {
           ...state.backgroundEditForm,
           fileName:action.payload.fileName
-        }
+        },
+        backgroundFileErrorMessage:'',
+      }
+    case constants.UPLOAD_BACKGROUND_ERROR:
+      return {
+        ...state,
+        uploadBackgroundProgress:false,
+        backgroundFileErrorMessage:action.payload.message,
+        backgroundEditForm: {
+          ...state.backgroundEditForm,
+          fileName:"",
+        },
       }
     case constants.CHANGE_FORM_FIELD:
       return {

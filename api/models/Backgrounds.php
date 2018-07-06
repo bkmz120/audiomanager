@@ -52,8 +52,26 @@ class Backgrounds extends \yii\db\ActiveRecord
             Yii::$app->db->createCommand()
                 ->update('playlists', ['backgrounds_changed' => 1], 'current = 1')
                 ->execute();
+
+            $fileName = $this->fileName;
+            //move file from tmp directory to upload
+
+            if (is_file(UPLOAD_BACKGROUNDS_DIR.'tmp/'.$fileName)) {
+                rename(UPLOAD_BACKGROUNDS_DIR.'tmp/'.$fileName, UPLOAD_BACKGROUNDS_DIR.$fileName);
+
+                foreach (scandir(UPLOAD_BACKGROUNDS_DIR.'tmp/') as $item) {
+                    if ($item == '.' || $item == '..') {
+                        continue;
+                    }
+                    if (is_file(UPLOAD_BACKGROUNDS_DIR.'tmp/'.$item)) {
+                        unlink(UPLOAD_BACKGROUNDS_DIR.'tmp/'.$item);
+                    }
+                }
+            }
         }
     }
+
+
 
     public function afterDelete()
     {
@@ -63,5 +81,9 @@ class Backgrounds extends \yii\db\ActiveRecord
                 ->update('playlists', ['backgrounds_changed' => 1], 'current = 1')
                 ->execute();
 
+        $fileName = $this->fileName;
+        if (is_file(UPLOAD_BACKGROUNDS_DIR.$fileName)) {
+            unlink(UPLOAD_BACKGROUNDS_DIR.$fileName); // delete file
+        }
     }
 }

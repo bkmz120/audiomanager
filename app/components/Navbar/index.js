@@ -7,6 +7,7 @@ import {Link } from 'react-router-dom';
 import {connect} from "react-redux";
 
 import {changeTab} from '../../actions/navbar.js';
+import "./style.css";
 
 export class Nav extends React.Component {
 
@@ -24,6 +25,7 @@ export class Nav extends React.Component {
           <Tab component={Link} to="/playlist" label="Playlist Manager" />
           <Tab component={Link} to="/background" label="Background Manager"/>
           <Tab component={Link} to="/history" label="History Manager"/>
+          <Tab component={Link} to="/logout" label="logout" className="logoutBtn"/>
         </Tabs>
       </AppBar>
     )

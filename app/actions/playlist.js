@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as constants from "../constants/playlist";
+import {logout} from "./user.js";
 
 export function getPlaylists() {
   return function(dispatch) {
@@ -15,6 +16,9 @@ export function getPlaylists() {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -44,6 +48,9 @@ export function openPlaylistEdit(playListId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -65,6 +72,9 @@ export function changePlaylistOrder(playlist,oldIndex,newIndex) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -92,11 +102,17 @@ export function addTrackToPlaylist(playlist,track) {
           .catch(function (error) {
              //TODO: add error processing
             console.log(error);
+            if (error.response && error.response.status==403) {
+              dispatch(logout());
+            }
           });
       })
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -131,11 +147,17 @@ export function deleteTrackFromPlaylist(playlist,idInPlaylist) {
           .catch(function (error) {
              //TODO: add error processing
             console.log(error);
+            if (error.response && error.response.status==403) {
+              dispatch(logout());
+            }
           });
       })
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
       });
   }
 }
@@ -188,6 +210,9 @@ export function savePlaylist(newPlaylist) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
       else {
@@ -205,6 +230,9 @@ export function savePlaylist(newPlaylist) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
     }
@@ -223,6 +251,9 @@ export function deletePlaylist(playlistId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
       })
   }
 }
@@ -239,6 +270,9 @@ export function setCurrentPlaylist(playlistId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
       })
   }
 }

@@ -5,12 +5,18 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 export default class MainWrapper extends Component {
   render() {
     const {
-      children
+      children,
+      navBarEnable
     } = this.props
+
+    let navBar;
+    if (navBarEnable!==false) {
+      navBar = <Navbar />;
+    }
 
     return (
       <CssBaseline>
-        <Navbar />
+        {navBar}
         <div className="pageContainer">
           {children}
         </div>

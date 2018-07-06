@@ -6,8 +6,12 @@
 
 }
 
+.AudioEditForm__saveLine {
+  display: flex;
+  margin-top: 30px;
+}
+
 .AudioEditForm__addBtn {
-  margin-top: 30px !important;
 }
 
 .AudioEditForm__fileLine {
@@ -24,4 +28,12 @@
 
 .AudioEditForm__trackFileName_error {
   color:#f44336;
+}
+
+.AudioEditForm__saveProgress {
+  margin-left: 20px !important;
+}
+
+.AudioEditForm__uploadProgress {
+  margin-left: 20px !important;
 }

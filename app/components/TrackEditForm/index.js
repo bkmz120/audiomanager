@@ -47,7 +47,7 @@ class TrackEditForm extends Component {
 
     let addTrackPocessAnimation;
     if (this.props.addTrackPocess) {
-      addTrackPocessAnimation = <CircularProgress className="AudioEditForm__progress" />
+      addTrackPocessAnimation = <CircularProgress className="AudioEditForm__saveProgress" />
     }
 
     let fileName;
@@ -58,6 +58,12 @@ class TrackEditForm extends Component {
       fileName = "Choose track file* :";
     }
 
+
+    let uploadProgressAnimation;
+    if (this.props.uploadTrackProgress) {
+      uploadProgressAnimation = <CircularProgress className="AudioEditForm__uploadProgress" />;
+    }
+
     return (
       <div className="AudioEditForm">
         <div className="AudioEditForm__fileLine">
@@ -65,6 +71,7 @@ class TrackEditForm extends Component {
             {fileName}
           </div>
           <FileUpload upload={this.props.uploadTrack}></FileUpload>
+          {uploadProgressAnimation}
         </div>
         <form noValidate autoComplete="off" className="AudioEditForm__form">
             <div>
@@ -100,15 +107,17 @@ class TrackEditForm extends Component {
               />
             </div>
 
-            <Button
-              variant="contained"
-              color="primary"
-              className="AudioEditForm__addBtn"
-              onClick={() => {this.props.saveTrack(this.state.newTrack) } }
-            >
-              Save
-            </Button>
-            {addTrackPocessAnimation}
+            <div className="AudioEditForm__saveLine">
+              <Button
+                variant="contained"
+                color="primary"
+                className="AudioEditForm__addBtn"
+                onClick={() => {this.props.saveTrack(this.state.newTrack) } }
+              >
+                Save
+              </Button>
+              {addTrackPocessAnimation}
+            </div>
           </form>
       </div>
     );
@@ -123,6 +132,7 @@ const mapStateToProps = (state, ownProps) => {
     trackEditForm:state.audio.trackEditForm,
     trackEditFormValidProps:state.audio.trackEditFormValidProps,
     trackEditFormValid:state.audio.trackEditFormValid,
+    uploadTrackProgress:state.audio.uploadTrackProgress,
   }
 }
 

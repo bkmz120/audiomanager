@@ -54,8 +54,8 @@ class Tracks extends \yii\db\ActiveRecord
         return $this->hasMany(PlaylistTracks::className(), ['track_id' => 'id']);
     }
 
-    public function beforeDelete()
-    {
+    public function beforeDelete() {
+
         if (!parent::beforeDelete()) {
             return false;
         }
@@ -91,6 +91,36 @@ class Tracks extends \yii\db\ActiveRecord
         }
 
         return true;
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        parent::afterSave($insert, $changedAttributes);
+
+        if($insert) {
+            $fileName = $this->fileName;
+            //move file from tmp directory to upload
+            if (is_file(UPLOAD_TRACKS_DIR.'tmp/'.$fileName)) {
+                rename(UPLOAD_TRACKS_DIR.'tmp/'.$fileName, UPLOAD_TRACKS_DIR.$fileName);
+                foreach (scandir(UPLOAD_TRACKS_DIR.'tmp/') as $item) {
+                    if ($item == '.' || $item == '..') {
+                        continue;
+                    }
+                    if (is_file(UPLOAD_TRACKS_DIR.'tmp/'.$item)) {
+                        unlink(UPLOAD_TRACKS_DIR.'tmp/'.$item);
+                    }
+                }
+            }
+        }
+    }
+
+    public function afterDelete() {
+        parent::afterDelete();
+        $fileName = $this->fileName;
+
+        if (is_file(UPLOAD_TRACKS_DIR.$fileName)) {
+           rename(UPLOAD_TRACKS_DIR.$fileName, REMOVED_TRACKS_DIR.$fileName);
+        }
+
     }
 
 }

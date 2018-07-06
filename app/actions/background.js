@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as constants from "../constants/background";
+import {logout} from "./user.js";
 
 export function getBackgrounds() {
   return function(dispatch) {
@@ -15,6 +16,9 @@ export function getBackgrounds() {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -41,16 +45,30 @@ export function uploadBackground(file) {
         }
       })
       .then(function (response) {
-          dispatch({
-            type:constants.UPLOAD_BACKGROUND_SUCCESS,
-            payload:{
-              fileName:file.name
-            }
-          });
+          if (response.data.status) {
+            dispatch({
+              type:constants.UPLOAD_BACKGROUND_SUCCESS,
+              payload:{
+                fileName:file.name
+              }
+            });
+          }
+          else {
+            dispatch({
+              type:constants.UPLOAD_BACKGROUND_ERROR,
+              payload:{
+                message:response.data.message
+              }
+            });
+          }
+
         })
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
   }
 }
@@ -100,6 +118,9 @@ export function saveBackground(newBackground) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
       else {
@@ -112,6 +133,9 @@ export function saveBackground(newBackground) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
     }
@@ -138,6 +162,9 @@ export function openBackgroundEdit(backgroundId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -154,6 +181,9 @@ export function deleteBackground(backgroundId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }

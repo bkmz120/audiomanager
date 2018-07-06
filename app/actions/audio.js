@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as constants from "../constants/audio";
+import {logout} from "./user.js";
 
 export function getTracks() {
   return function(dispatch) {
@@ -14,7 +15,9 @@ export function getTracks() {
       })
       .catch(function (error) {
          //TODO: add error processing
-        console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -51,6 +54,9 @@ export function uploadTrack(file) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
   }
 }
@@ -90,8 +96,6 @@ export function saveTrack(newTrack) {
         type:constants.SAVE_TRACK
       });
 
-      console.log("newTrack",newTrack);
-
       if (newTrack) {
         axios.post('/api/tracks',track)
         .then(function (response) {
@@ -102,6 +106,9 @@ export function saveTrack(newTrack) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
       else {
@@ -114,6 +121,9 @@ export function saveTrack(newTrack) {
         .catch(function (error) {
           //TODO: add error processing
           console.log(error);
+          if (error.response && error.response.status==403) {
+            dispatch(logout());
+          }
         });
       }
     }
@@ -140,6 +150,9 @@ export function openTrackEdit(trackId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }
@@ -156,6 +169,9 @@ export function deleteTrack(trackId) {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }

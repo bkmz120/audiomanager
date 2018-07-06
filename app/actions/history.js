@@ -1,5 +1,6 @@
 import axios from "axios";
 import * as constants from "../constants/history";
+import {logout} from "./user.js";
 
 export function getHistory() {
   return function(dispatch) {
@@ -19,6 +20,9 @@ export function getHistory() {
       .catch(function (error) {
          //TODO: add error processing
         console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
       });
   }
 }

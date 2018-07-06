@@ -6,8 +6,12 @@
 
 }
 
+.backgroundEditForm__saveLine {
+  display: flex;
+  margin-top: 30px;
+}
+
 .backgroundEditForm__addBtn {
-  margin-top: 30px !important;
 }
 
 .backgroundEditForm__fileLine {
@@ -24,4 +28,20 @@
 
 .backgroundEditForm__trackFileName_error {
   color:#f44336;
+}
+
+.backgroundEditForm__fileError {
+  color:#f44336;
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 20px;
+  margin-top: 7px;
+}
+
+.backgroundEditForm__saveProgress {
+  margin-left: 20px !important;
+}
+
+.backgroundEditForm__uploadProgress {
+  margin-left: 20px !important;
 }

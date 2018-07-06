@@ -1,4 +1,5 @@
 deployment/
+uploads/removed/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {API_PATH} from "../constants/api.js";
 import * as constants from "../constants/user";
 
 export function changeLoginForm(key,value) {
@@ -32,7 +33,7 @@ export function login(username,password) {
       });
     }
     else {
-      axios.post('/api/user/login',{username,password})
+      axios.post(API_PATH + '/user/login',{username,password})
         .then(function (response) {
           let status = response.data.status;
           if (status) {

@@ -1,10 +1,11 @@
 import axios from "axios";
+import {API_PATH} from "../constants/api.js";
 import * as constants from "../constants/background";
 import {logout} from "./user.js";
 
 export function getBackgrounds() {
   return function(dispatch) {
-     axios.get('/api/backgrounds')
+     axios.get(API_PATH + '/backgrounds')
       .then(function (response) {
         dispatch({
           type:constants.GET_BACKGROUNDS_SUCCESS,
@@ -39,7 +40,7 @@ export function uploadBackground(file) {
     let fd = new FormData();
     fd.append('file', file);
     axios
-      .post('/api/backgrounds/uploadfile', fd, {
+      .post(API_PATH + '/backgrounds/uploadfile', fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -109,7 +110,7 @@ export function saveBackground(newBackground) {
       });
 
       if (newBackground) {
-        axios.post('/api/backgrounds',background)
+        axios.post(API_PATH + '/backgrounds',background)
         .then(function (response) {
           dispatch({
             type:constants.SAVE_BACKGROUND_SUCCESS
@@ -124,7 +125,7 @@ export function saveBackground(newBackground) {
         });
       }
       else {
-        axios.patch('/api/backgrounds/'+background.id,background)
+        axios.patch(API_PATH + '/backgrounds/'+background.id,background)
         .then(function (response) {
           dispatch({
             type:constants.SAVE_BACKGROUND_SUCCESS
@@ -150,7 +151,7 @@ export function initEditForm() {
 
 export function openBackgroundEdit(backgroundId) {
   return function(dispatch) {
-    axios.get('/api/backgrounds/'+backgroundId)
+    axios.get(API_PATH + '/backgrounds/'+backgroundId)
       .then(function (response) {
         dispatch({
           type:constants.OPEN_BACKGROUND_EDIT,
@@ -171,7 +172,7 @@ export function openBackgroundEdit(backgroundId) {
 
 export function deleteBackground(backgroundId) {
   return function(dispatch) {
-    axios.delete('/api/backgrounds/'+backgroundId)
+    axios.delete(API_PATH + '/backgrounds/'+backgroundId)
       .then(function (response) {
         dispatch({
           type:constants.DELETE_BACKGROUND,
@@ -190,7 +191,7 @@ export function deleteBackground(backgroundId) {
 
 export function checkUseDefault() {
   return function(dispatch) {
-    axios.get('/api/backgrounds/usedefault')
+    axios.get(API_PATH + '/backgrounds/usedefault')
       .then(function (response) {
         dispatch({
           type:constants.CHANGE_USE_DEFAULT,
@@ -212,7 +213,7 @@ export function checkUseDefault() {
 
 export function setUseDefault(usedefault) {
   return function(dispatch) {
-    axios.patch('/api/backgrounds/usedefault',{usedefault})
+    axios.patch(API_PATH + '/backgrounds/usedefault',{usedefault})
       .then(function (response) {
         dispatch({
           type:constants.CHANGE_USE_DEFAULT,

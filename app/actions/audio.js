@@ -1,10 +1,11 @@
 import axios from "axios";
+import {API_PATH} from "../constants/api.js";
 import * as constants from "../constants/audio";
 import {logout} from "./user.js";
 
 export function getTracks() {
   return function(dispatch) {
-     axios.get('/api/tracks')
+     axios.get(API_PATH + '/tracks')
       .then(function (response) {
         dispatch({
           type:constants.GET_TRACKS_SUCCESS,
@@ -38,7 +39,7 @@ export function uploadTrack(file) {
     let fd = new FormData();
     fd.append('trackFile', file);
     axios
-      .post('/api/tracks/uploadtrack', fd, {
+      .post(API_PATH + '/tracks/uploadtrack', fd, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -97,7 +98,7 @@ export function saveTrack(newTrack) {
       });
 
       if (newTrack) {
-        axios.post('/api/tracks',track)
+        axios.post(API_PATH + '/tracks',track)
         .then(function (response) {
           dispatch({
             type:constants.SAVE_TRACK_SUCCESS
@@ -112,7 +113,7 @@ export function saveTrack(newTrack) {
         });
       }
       else {
-        axios.patch('/api/tracks/'+track.id,track)
+        axios.patch(API_PATH + '/tracks/'+track.id,track)
         .then(function (response) {
           dispatch({
             type:constants.SAVE_TRACK_SUCCESS
@@ -138,7 +139,7 @@ export function initEditForm() {
 
 export function openTrackEdit(trackId) {
   return function(dispatch) {
-    axios.get('/api/tracks/'+trackId)
+    axios.get(API_PATH + '/tracks/'+trackId)
       .then(function (response) {
         dispatch({
           type:constants.OPEN_TRACK_EDIT,
@@ -159,7 +160,7 @@ export function openTrackEdit(trackId) {
 
 export function deleteTrack(trackId) {
   return function(dispatch) {
-    axios.delete('/api/tracks/'+trackId)
+    axios.delete(API_PATH + '/tracks/'+trackId)
       .then(function (response) {
         dispatch({
           type:constants.DELETE_TRACK,

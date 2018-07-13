@@ -1,10 +1,11 @@
 import axios from "axios";
+import {API_PATH} from "../constants/api.js";
 import * as constants from "../constants/playlist";
 import {logout} from "./user.js";
 
 export function getPlaylists() {
   return function(dispatch) {
-     axios.get('/api/playlists')
+     axios.get(API_PATH + '/playlists')
       .then(function (response) {
         dispatch({
           type:constants.GET_PLAYLISTS_SUCCESS,
@@ -31,7 +32,7 @@ export function initPlaylistEdit() {
 
 export function openPlaylistEdit(playListId) {
   return function(dispatch) {
-    axios.get('/api/playlists/' + playListId )
+    axios.get(API_PATH + '/playlists/' + playListId )
       .then(function (response) {
         let playlist = response.data;
         playlist.tracks_order = JSON.parse(playlist.tracks_order);
@@ -62,7 +63,7 @@ export function changePlaylistOrder(playlist,oldIndex,newIndex) {
       Array.prototype.splice.call(tracks_order, oldIndex, 1)[0]
     );
 
-    axios.put('/api/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
+    axios.put(API_PATH + '/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
       .then(function (response) {
         dispatch({
           type:constants.CHANGE_PLAYLIST_ORDER,
@@ -85,14 +86,14 @@ export function addTrackToPlaylist(playlist,track) {
     dispatch({
       type:constants.ADD_TRACK_TO_PLAYLIST
     });
-    axios.post('/api/playlisttracks',{playlist_id:playlist.id, track_id: newTrack.id})
+    axios.post(API_PATH + '/playlisttracks',{playlist_id:playlist.id, track_id: newTrack.id})
       .then(function (response) {
 
         let tracks_order = playlist.tracks_order.slice();
         tracks_order.push(response.data.id);
         newTrack.idInPlaylist = response.data.id;
 
-        axios.put('/api/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
+        axios.put(API_PATH + '/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
           .then(function (response) {
             dispatch({
               type:constants.ADD_TRACK_TO_PLAYLIST_SUCCESS,
@@ -122,7 +123,7 @@ export function deleteTrackFromPlaylist(playlist,idInPlaylist) {
 
     idInPlaylist = parseInt(idInPlaylist);
 
-    axios.delete('/api/playlisttracks/' + idInPlaylist)
+    axios.delete(API_PATH + '/playlisttracks/' + idInPlaylist)
       .then(function (response) {
         let indexInOrder = playlist.tracks_order.indexOf(idInPlaylist);
         let tracks_order = playlist.tracks_order.slice(0,indexInOrder).concat(playlist.tracks_order.slice(indexInOrder+1));
@@ -137,7 +138,7 @@ export function deleteTrackFromPlaylist(playlist,idInPlaylist) {
 
         let tracks = playlist.tracks.slice(0,indexOfTrack).concat(playlist.tracks.slice(indexOfTrack+1));
 
-        axios.put('/api/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
+        axios.put(API_PATH + '/playlists/' + playlist.id,{tracks_order:JSON.stringify(tracks_order)})
           .then(function (response) {
             dispatch({
               type:constants.DELETE_TRACK_FROM_PLAYLIST,
@@ -196,7 +197,7 @@ export function savePlaylist(newPlaylist) {
       });
 
       if (newPlaylist) {
-        axios.post('/api/playlists',{...playlist, tracks_order: JSON.stringify(playlist.tracks_order)})
+        axios.post(API_PATH + '/playlists',{...playlist, tracks_order: JSON.stringify(playlist.tracks_order)})
         .then(function (response) {
           if (response.data.id !== undefined) {
             dispatch({
@@ -216,7 +217,7 @@ export function savePlaylist(newPlaylist) {
         });
       }
       else {
-        axios.patch('/api/playlists/'+playlist.id,{...playlist, tracks_order: JSON.stringify(playlist.tracks_order)})
+        axios.patch(API_PATH + '/playlists/'+playlist.id,{...playlist, tracks_order: JSON.stringify(playlist.tracks_order)})
         .then(function (response) {
           if (response.data.id !== undefined) {
             dispatch({
@@ -241,7 +242,7 @@ export function savePlaylist(newPlaylist) {
 
 export function deletePlaylist(playlistId) {
   return function(dispatch){
-    axios.delete('/api/playlists/'+playlistId)
+    axios.delete(API_PATH + '/playlists/'+playlistId)
       .then(function (response) {
         dispatch({
           type:constants.DELETE_PLAYLIST_SUCCESS,
@@ -260,7 +261,7 @@ export function deletePlaylist(playlistId) {
 
 export function setCurrentPlaylist(playlistId) {
   return function(dispatch) {
-    axios.put('/api/playlists/'+playlistId,{current:1})
+    axios.put(API_PATH + '/playlists/'+playlistId,{current:1})
       .then(function (response) {
         dispatch({
           type:constants.SET_CURRENT_PLAYLIST,

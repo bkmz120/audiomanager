@@ -1,10 +1,11 @@
 import axios from "axios";
+import {API_PATH} from "../constants/api.js";
 import * as constants from "../constants/history";
 import {logout} from "./user.js";
 
 export function getHistory() {
   return function(dispatch) {
-     axios.get('/api/logs')
+     axios.get(API_PATH + '/logs')
       .then(function (response) {
         for (let i=0;i<response.data.length;i++) {
           response.data[i].log = JSON.parse(response.data[i].log);
@@ -30,7 +31,7 @@ export function getHistory() {
 
 export function clearHistory() {
   return function(dispatch) {
-     axios.post('/api/logs/clear')
+     axios.post(API_PATH + '/logs/clear')
       .then(function (response) {
         dispatch({
           type:constants.CLEAR_HISTORY,

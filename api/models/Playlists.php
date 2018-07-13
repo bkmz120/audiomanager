@@ -75,22 +75,36 @@ class Playlists extends \yii\db\ActiveRecord
             //if playlist set as current than remove current flag from other playlist
             if ($changedAttributes['current']===0) {
                 $playlists = Playlists::find()->where(['current' => 1])->all();
+                $useDefaultBackground = false;
                 foreach ($playlists as $key => $playlist) {
                     if ($playlist->id!==$this->id) {
                         $playlist->current = 0;
                         $playlist->update();
+
+                        if ($playlist->current_background_id===-1) {
+                            $useDefaultBackground = true;
+                        }
                     }
+                    
+                }
+
+                if ($useDefaultBackground) {
+                    $this->current_background_id = -1;
+                }
+                else {
+                    $this->current_background_id = 0;
                 }
 
                 if ($this->current_track_num!=0) {
                     $this->current_track_num = 0;
-                    $needUpdate = true;
+                    
                 }
 
                 if ($this->playlist_changed!=0) {
                     $this->playlist_changed = 0;
-                    $needUpdate = true;
                 }
+
+                $needUpdate = true;
             }
 
             //if playlist is current and tracks_order was changed set playlist_changed flag

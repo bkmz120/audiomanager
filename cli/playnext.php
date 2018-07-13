@@ -45,26 +45,37 @@ $backgrounds = Backgrounds::find()
     ->asArray()
     ->all();
 
-if ($playlist->current_background_id===0 || $playlist->backgrounds_changed) {
-  $playlist->current_background_id = $backgrounds[0]['id'];
-  $playlist->backgrounds_changed = 0;
-}
 
-for ($i=0;$i<count($backgrounds);$i++) {
-  if ($backgrounds[$i]['id']==$playlist->current_background_id) {
-    $background = $backgrounds[$i];
-    if ($i<count($backgrounds)-1) {
-      $newCurrentBackgroundId = $backgrounds[$i+1]['id'];
-    }
-    else {
-      $newCurrentBackgroundId = $backgrounds[0]['id'];
-    }
-    break;
+if ($playlist->current_background_id===-1) {
+  $background = [];
+  $background['title'] = 'default background';
+  $background['location'] = DEFAULT_BACKGROUND_PATH;
+}
+else {
+  if ($playlist->current_background_id===0 || $playlist->backgrounds_changed) {
+    $playlist->current_background_id = $backgrounds[0]['id'];
+    $playlist->backgrounds_changed = 0;
   }
-}
-$playlist->current_background_id = $newCurrentBackgroundId;
 
-//important update playlist
+  for ($i=0;$i<count($backgrounds);$i++) {
+    if ($backgrounds[$i]['id']==$playlist->current_background_id) {
+      $background = $backgrounds[$i];
+      if ($i<count($backgrounds)-1) {
+        $newCurrentBackgroundId = $backgrounds[$i+1]['id'];
+      }
+      else {
+        $newCurrentBackgroundId = $backgrounds[0]['id'];
+      }
+      break;
+    }
+  }
+
+  $background['location'] = UPLOAD_BACKGROUNDS_DIR.$background['fileName'];
+  $playlist->current_background_id = $newCurrentBackgroundId;
+}
+
+
+//important to update playlist
 $playlist->update();
 
 //Here we have $track and $background
@@ -76,7 +87,7 @@ $result = [
   'track_description' => $track['description'],
   'track_location' => UPLOAD_TRACKS_DIR.$track['fileName'],
   'background_title' => $background['title'],
-  'background_location' => UPLOAD_BACKGROUNDS_DIR.$background['fileName'],
+  'background_location' => $background['location'],
 ];
 
 //data for save in database

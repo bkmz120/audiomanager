@@ -187,3 +187,47 @@ export function deleteBackground(backgroundId) {
       });
   }
 }
+
+export function checkUseDefault() {
+  return function(dispatch) {
+    axios.get('/api/backgrounds/usedefault')
+      .then(function (response) {
+        dispatch({
+          type:constants.CHANGE_USE_DEFAULT,
+          payload:{
+            useDefaultBackground:response.data.usedefault,
+            enableUseDefaultCheckbox:response.data.enableUsedefault,
+          }
+        });
+      })
+      .catch(function (error) {
+         //TODO: add error processing
+        console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
+      });
+  }
+}
+
+export function setUseDefault(usedefault) {
+  return function(dispatch) {
+    axios.patch('/api/backgrounds/usedefault',{usedefault})
+      .then(function (response) {
+        dispatch({
+          type:constants.CHANGE_USE_DEFAULT,
+          payload:{
+            useDefaultBackground:response.data.usedefault,
+            enableUseDefaultCheckbox:response.data.enableUsedefault,
+          }
+        });
+      })
+      .catch(function (error) {
+         //TODO: add error processing
+        console.log(error);
+        if (error.response && error.response.status==403) {
+          dispatch(logout());
+        }
+      });
+  }
+}

@@ -80,6 +80,8 @@ $config = [
                     'controller' => 'background',
                     'extraPatterns' => [
                         'POST uploadfile' => 'uploadfile',
+                        'GET usedefault' => 'check_use_default_background',
+                        'PATCH usedefault' => 'set_use_default_background',
                     ],
                 ],
                 [

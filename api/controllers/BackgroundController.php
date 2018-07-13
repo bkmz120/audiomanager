@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use yii\rest\ActiveController;
+use app\models\Playlists;
 
 class BackgroundController extends ActiveController
 {
@@ -36,10 +37,62 @@ class BackgroundController extends ActiveController
           $response['status'] = false;
           $response['message'] = 'Incorrect image resolution. Should be '.BACKGROUND_WIDTH.'*'.BACKGROUND_HEIGHT;
         }
+          
 
         \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 
         return $response;
+    }
+
+    public function actionCheck_use_default_background() {
+        $playlist = Playlists::find()
+            ->where(['current'=>1])
+            ->one();
+        
+        if ($playlist===null) {
+            $response = ['status'=>true, 'usedefault'=>false, 'enableUsedefault'=>false];
+        }
+        else {
+            if ($playlist->current_background_id===-1) {                
+                $usedefault = true;
+            }
+            else {
+                $usedefault = false;
+            }
+
+            $response = ['status'=>true, 'usedefault'=>$usedefault, 'enableUsedefault'=>true];            
+        }
+                
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        return $response;        
+    }
+
+    public function actionSet_use_default_background() {
+        $request = \Yii::$app->request;
+        $usedefault = $request->post('usedefault');
+
+        $playlist = Playlists::find()
+            ->where(['current'=>1])
+            ->one();
+
+        if ($playlist===null) {
+            $response = ['status'=>true, 'usedefault'=>false,'enableUsedefault' => false];
+        }
+        else {
+            if ($usedefault) {
+                $playlist->current_background_id = -1;
+            }
+            else {
+                $playlist->current_background_id = 0;
+            }
+            $playlist->update();
+
+            $response = ['status'=>true, 'usedefault'=>$usedefault,'enableUsedefault' => true];
+        }
+
+        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        return $response;        
     }
 
 

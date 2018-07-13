@@ -346,6 +346,20 @@
 
 }
 
+.backgroundManager__useDefault {
+  margin-left: 18px;
+}
+
+.backgroundManager__useDefault-check {
+  
+}
+
+.backgroundManager__useDefault-message {
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+
 .backgroundManager__list {
   display: inline-block;
   vertical-align: top;

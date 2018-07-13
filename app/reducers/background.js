@@ -10,6 +10,8 @@ const initialState = {
     title:true,
     fileName:true,
   },
+  useDefaultBackground:false,
+  enableUseDefaultCheckbox:false,
   backgroundEditFormValid:true,
   getBackgroundsProcess: false,
   uploadBackgroundProgress:false,
@@ -97,10 +99,16 @@ export default function update(state = initialState, action) {
         backgroundEditForm:action.payload.background
       }
     case constants.DELETE_BACKGROUND:
-        return {
-          ...state,
-          backgrounds:state.backgrounds.filter(t => t.id !== action.payload.backgroundId)
-        }
+      return {
+        ...state,
+        backgrounds:state.backgrounds.filter(t => t.id !== action.payload.backgroundId)
+      }
+    case constants.CHANGE_USE_DEFAULT:
+      return {
+        ...state,
+        useDefaultBackground:action.payload.useDefaultBackground,
+        enableUseDefaultCheckbox:action.payload.enableUseDefaultCheckbox,
+      }
     default:
       return state;
   }

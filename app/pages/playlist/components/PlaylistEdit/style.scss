@@ -1,0 +1,42 @@
+.playlistEdit {
+
+  &__inputs {
+    margin-top: 30px;
+  }
+
+  &__saveBtn {
+    margin-left: 30px !important;
+  }
+
+  &__lists {
+    margin-top: 30px;
+  }
+
+  &__listTitle {
+    font-size: 19px;
+    color: #b0b0b0;
+    margin-bottom: 20px;
+    font-style: italic;
+    padding-left: 20px;
+  }
+
+  &__listContainer {
+    height: 300px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-shadow: 0px 1px 4px 2px rgb(234, 234, 234);
+  }
+
+  &__allTracks {
+    display: inline-block;
+    vertical-align: top;
+    width: 400px;
+  }
+
+  &__playlistTracks {
+    display: inline-block;
+    vertical-align: top;
+    width: 400px;
+    margin-right: 50px;
+  }
+}

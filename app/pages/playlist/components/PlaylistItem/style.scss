@@ -1,0 +1,72 @@
+.playListItem {
+  line-height: 70px;
+  padding: 0 20px;
+  border-bottom: 1px solid #efefef;
+
+  &:hover {
+    background-color: #fff;
+  }
+
+  &__name {
+    display: inline-block;
+    vertical-align: top;
+    width: 400px;
+    margin-right: 4px;
+  }
+
+  &__btns {
+    display: inline-block;
+    vertical-align: top;
+    float: right;
+  }
+
+  &__edit {
+    display: inline-block;
+    vertical-align: top;
+    margin:0 7px !important;
+  }
+
+  &__delete {
+    display: inline-block;
+    vertical-align: top;
+    margin:0 7px !important;
+    cursor: pointer;
+  }
+
+  &__setCurrent {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 16px;
+    margin-left: 30px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #858585;
+    padding: 8px 15px;
+    border: 1px solid #858585;
+    border-radius: 5px;
+    cursor: pointer;
+    line-height: 17px;
+  }
+
+  &__setCurrent:hover {
+    border-color: #444;
+    color: #444;
+  }
+
+  &__current {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 16px;
+    margin-left: 30px;
+    color: #347b1d;
+    line-height: 17px;
+    width: 125px;
+  }
+
+  &__current-text {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 4px;
+    margin-left: 5px;
+  }
+}

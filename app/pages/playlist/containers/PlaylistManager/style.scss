@@ -1,0 +1,19 @@
+.playlistManager {
+
+  &__backBtn {
+
+  }
+
+  &__list {
+    display: inline-block;
+    vertical-align: top;
+    width: 720px;
+    margin-left: 18px;
+    margin-right: 30px;
+  }
+
+  &__addBtn {
+      display: inline-block;
+      vertical-align: top;
+  }
+}

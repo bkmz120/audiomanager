@@ -1,0 +1,45 @@
+.backgroundEditForm {
+  &__form {
+
+  }
+
+  &__saveLine {
+    display: flex;
+    margin-top: 30px;
+  }
+
+  &__addBtn {
+  }
+
+  &__fileLine {
+
+  }
+
+  &__trackFileName {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 18px;
+    line-height: 36px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+
+  &__trackFileName_error {
+    color:#f44336;
+  }
+
+  &__fileError {
+    color:#f44336;
+    display: inline-block;
+    vertical-align: top;
+    margin-left: 20px;
+    margin-top: 7px;
+  }
+
+  &__saveProgress {
+    margin-left: 20px !important;
+  }
+
+  &__uploadProgress {
+    margin-left: 20px !important;
+  }
+}

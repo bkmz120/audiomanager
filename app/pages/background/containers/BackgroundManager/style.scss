@@ -1,0 +1,33 @@
+.backgroundManager {
+
+  &__backBtn {
+
+  }
+
+  &__useDefault {
+    margin-left: 18px;
+  }
+
+  &__useDefault-check {
+
+  }
+
+  &__useDefault-message {
+    color: #ccc;
+    margin-bottom: 20px;
+  }
+
+
+  &__list {
+    display: inline-block;
+    vertical-align: top;
+    width: 520px;
+    margin-left: 18px;
+    margin-right: 30px;
+  }
+
+  &__addBtn {
+    display: inline-block;
+    vertical-align: top;
+  }
+}

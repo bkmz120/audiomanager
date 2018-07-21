@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+
 require 'yii_init.php';
 use app\models\Playlists;
 use app\models\PlaylistTracks;
